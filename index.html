@@ -74,6 +74,11 @@
             font-size: 20px;
         }
 
+        #bar-conteiner{
+            padding: 1px;
+            background-color: blue;
+        }
+
         #bar{
             background-color: grey;
             height: 4px;
@@ -81,7 +86,7 @@
             width: 100%;
             justify-self: center;
             align-self: center;
-            margin: 20px;
+            margin: 10px;
         }
 
         #progresso{
@@ -131,8 +136,10 @@
             <div id="like"><i class="bi bi-heart"></i></div>
         </div>
 
-                    <div id="bar">
-                        <div id="progresso"></div>
+                    <div id="bar-conteiner">
+                        <div id="bar">
+                            <div id="progresso"></div>
+                        </div>
                     </div>
 
          <div id="botoes">
@@ -154,6 +161,7 @@ const play = document.getElementById ('play')
 const next = document.getElementById ('avanc')
 const previous = document.getElementById ('voltar')
 const music = document.getElementById ('audio')
+const barConteiner = document.getElementById ('bar-conteiner')
 
 const SouDaBoca = {
     pessoa : 'Vitin Ruindade Pura',
@@ -221,6 +229,13 @@ function Volt(){
         playMusic()
 }
 
+function pularPara(event){
+    const width = barConteiner.clientWidth;
+    const clickPosition = event.offsetX;
+    const pularTempo = (clickPosition/width)* music.duration;
+    music.currentTime = pularTempo;
+}
+
 function Inicializar (){
     pessoa.innerText = Playlist[index].pessoa
     capa.src = `./Imagens/${Playlist[index].file}.png`
@@ -242,6 +257,8 @@ play.addEventListener('click', darPlayOuN)
 previous.addEventListener ('click', Volt)
 next.addEventListener ('click', Prox)
 music.addEventListener ('timeupdate', updateProgressBar)
+barConteiner.addEventListener ('click', pularPara)
+
 </script>
 
 </body>
