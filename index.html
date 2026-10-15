@@ -125,6 +125,9 @@
             cursor: pointer;
         }
 
+        .button-active{
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -168,6 +171,8 @@ const next = document.getElementById ('avanc')
 const previous = document.getElementById ('voltar')
 const music = document.getElementById ('audio')
 const barConteiner = document.getElementById ('bar-conteiner')
+const embaralhar = document.getElementById ('aleatorio')
+const repetir = document.getElementById ('loop')
 
 const SouDaBoca = {
     pessoa : 'Vitin Ruindade Pura',
@@ -190,9 +195,13 @@ const Confissoes = {
     file : 'Confissoes'
 }
 
-const Playlist = [SouDaBoca, CryBaby, Confissoes];
+const originalPlaylist = [SouDaBoca, CryBaby, Confissoes];
+let playlist = [...originalPlaylist];
+
 let index = 0;
 let tocando = false;
+let embaralhado = false;
+let repetindo = false;
 
 function playMusic(){
     play.querySelector('.bi').classList.remove('bi-play-circle');
@@ -217,7 +226,7 @@ function darPlayOuN(){
 }
 
 function Prox(){
-    if (index === Playlist.length - 1){
+    if (index === playlist.length - 1){
         index = 0;
     }else{
     index += 1
@@ -227,7 +236,7 @@ function Prox(){
 }
 function Volt(){
     if (index === 0){
-        index = Playlist.length;
+        index = playlist.length;
     }else{
         index -= 1
         }
@@ -243,11 +252,11 @@ function pularPara(event){
 }
 
 function Inicializar (){
-    pessoa.innerText = Playlist[index].pessoa
-    capa.src = `./Imagens/${Playlist[index].file}.png`
-    music.src = `./Musicas/${Playlist[index].file}.mp3`
-    nomeMusic.innerText = Playlist[index].nomeMusic
-    nomeBand.innerText = Playlist[index].nomeBand
+    pessoa.innerText = playlist[index].pessoa
+    capa.src = `./Imagens/${playlist[index].file}.png`
+    music.src = `./Musicas/${playlist[index].file}.mp3`
+    nomeMusic.innerText = playlist[index].nomeMusic
+    nomeBand.innerText = playlist[index].nomeBand
 }
 
 function updateProgressBar(){
@@ -257,13 +266,59 @@ function updateProgressBar(){
     barra.style.setProperty('--progresso', `${barWidth}%`)
 }
 
+function arrayEmbaralhado (arrayAntes){
+    let tamanho = arrayAntes.length;
+    let currentIndex = tamanho - 1
+    
+    while (currentIndex > 0){
+        let NumeroAleatorio = Math.floor(Math.random()* size);
+        let aux = arrayAntes [currentIndex]
+        arrayAntes [currentIndex] = arrayAntes [NumeroAleatorio];
+        arrayAntes [NumeroAleatorio] = aux;
+        currentIndex -= 1;
+    }
+}
+
+function embaralhando (){
+    if (embaralhado --- false){
+        embaralhado = true;
+        arrayEmbaralhado(playlist);
+        embaralhar.classList.add('button-active');
+    }else{
+        embaralhado = false;
+        playlist = [...originalPlaylist];
+        embaralhar.classList.remove('button-active');
+    }
+}
+
+function ativarRepetição(){
+        if (repetindo = false){
+        repetindo = true;
+        embaralhar.classList.add('button-active');
+        }else{
+        repetindo = false;
+        embaralhar.classList.remove('button-active');
+}
+}
+
+function ProxOuRepetir(){
+    if (repetindo === false){
+        nextSong();
+    }else{
+        PlaySong();
+    }
+}
+
 Inicializar()
 
 play.addEventListener('click', darPlayOuN)
 previous.addEventListener ('click', Volt)
 next.addEventListener ('click', Prox)
 music.addEventListener ('timeupdate', updateProgressBar)
+music.addEventListener ('ended, ProxOuRepetir')
 barConteiner.addEventListener ('click', pularPara)
+embaralhar.addEventListener ('click', embaralhando)
+repetir.addEventListener ('click', ativarRepetição)
 
 </script>
 
