@@ -126,7 +126,7 @@
         }
 
         .button-active{
-            color: green;
+            color: rgb(3, 255, 3);
         }
     </style>
 </head>
@@ -271,7 +271,7 @@ function arrayEmbaralhado (arrayAntes){
     let currentIndex = tamanho - 1
     
     while (currentIndex > 0){
-        let NumeroAleatorio = Math.floor(Math.random()* size);
+        let NumeroAleatorio = Math.floor(Math.random()* tamanho);
         let aux = arrayAntes [currentIndex]
         arrayAntes [currentIndex] = arrayAntes [NumeroAleatorio];
         arrayAntes [NumeroAleatorio] = aux;
@@ -280,7 +280,7 @@ function arrayEmbaralhado (arrayAntes){
 }
 
 function embaralhando (){
-    if (embaralhado --- false){
+    if (embaralhado === false){
         embaralhado = true;
         arrayEmbaralhado(playlist);
         embaralhar.classList.add('button-active');
@@ -292,12 +292,12 @@ function embaralhando (){
 }
 
 function ativarRepetição(){
-        if (repetindo = false){
+        if (repetindo === false){
         repetindo = true;
-        embaralhar.classList.add('button-active');
+        repetir.classList.add('button-active');
         }else{
         repetindo = false;
-        embaralhar.classList.remove('button-active');
+        repetir.classList.remove('button-active');
 }
 }
 
@@ -315,7 +315,7 @@ play.addEventListener('click', darPlayOuN)
 previous.addEventListener ('click', Volt)
 next.addEventListener ('click', Prox)
 music.addEventListener ('timeupdate', updateProgressBar)
-music.addEventListener ('ended, ProxOuRepetir')
+music.addEventListener ('ended', ProxOuRepetir)
 barConteiner.addEventListener ('click', pularPara)
 embaralhar.addEventListener ('click', embaralhando)
 repetir.addEventListener ('click', ativarRepetição)
